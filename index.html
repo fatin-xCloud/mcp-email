@@ -1,3 +1,60 @@
+<!--
+=============================================================================
+  IMAGE HANDOFF GUIDE FOR BREVO UPLOAD
+  Upload each file to Brevo > Assets > Images, then replace the
+  BREVO_URL_filename.ext placeholder in this file with the hosted URL.
+  All images must be uploaded with transparent background (PNG).
+=============================================================================
+
+  PLACEHOLDER                        FILE TO UPLOAD (from Google Drive)
+  ─────────────────────────────────  ─────────────────────────────────────
+  BREVO_URL_betterlinks-logo-white   betterlinks-logo-white.png
+                                     (white logo, transparent bg)
+                                     Drive: 1B0IRdWnIIajs3CFB4cvBgk3brq5Rp7m2
+
+  BREVO_URL_mcp-logo.png             mcp-logo.png
+                                     (Model Context Protocol mark)
+                                     Drive: 1pblS6PU7kNkc_HbrbiaPQu9FU59ifJmR
+
+  BREVO_URL_chatgpt-logo.png         chatgpt-logo.png
+                                     Drive: 1ZNc11FvJOFfXVzB1_QQwnImhf66TTAzv
+
+  BREVO_URL_claude-logo.png          claude-logo.png
+                                     Drive: 14fMrS5JiNPMj6LWNf6WWtNEJS1vRFTfX
+
+  BREVO_URL_cursor-logo.png          cursor-logo.png
+                                     Drive: 1tYKkf6KfqjMshzLpbrpXpgp9p2bT3HpS
+
+  BREVO_URL_vscode-logo.png          vscode-logo.png
+                                     Drive: 1TaOMzKYFlxCD2kbwgpGDt7z7BiSx4Qn4
+
+  BREVO_URL_betterlinks-mcp-hero.png betterlinks-mcp-hero.png
+                                     (hero product screenshot)
+                                     Currently on Brevo CDN:
+                                     img.mailinblue.com/11250778/images/
+                                     content_library/original/6a7db82ecae89cf48c89908c.png
+                                     Re-upload to your account if needed.
+
+  BREVO_URL_social-linkedin.png      social-linkedin.png
+                                     Drive: 1OdFCIIIHs0ijSk-MA8Kq02V7fbC7gWKh
+
+  BREVO_URL_social-facebook.png      social-facebook.png
+                                     Drive: 1t-zkUkVLUAi8ypYp38WDBT4_qNSzn16v
+
+  BREVO_URL_social-x-twitter.png     social-x-twitter.png
+                                     Drive: 1uUn3MXcC50y8Hp_-xLaUBeuMqXY-Y1dn
+
+  NOTE: The YouTube video thumbnail (img.youtube.com) is served directly
+  by YouTube and needs no upload. It will always be available.
+
+  HOW TO REPLACE IN BREVO:
+  1. Go to Campaigns > your campaign > Edit HTML
+  2. Use Ctrl+H (Find & Replace) in the editor
+  3. Find:    BREVO_URL_betterlinks-logo-white.png
+     Replace: https://img.brevo.com/... (your uploaded URL)
+  4. Repeat for each placeholder above.
+=============================================================================
+-->
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
 <head>
@@ -25,9 +82,6 @@
   <style>
     /* ==========================================================
        1. COLOR-SCHEME OPT-IN
-       Required so macOS / iOS Mail stop auto-inverting our
-       colors (this was the cause of the unreadable dark-mode
-       header in the reported screenshots).
        ========================================================== */
     :root {
       color-scheme: light dark;
@@ -58,6 +112,7 @@
        ========================================================== */
     .btn-primary a:hover { background-color:#4736d6 !important; }
     .link-hover:hover { text-decoration:underline !important; }
+    .social-pill a:hover img { opacity:0.75 !important; }
 
     /* ==========================================================
        4. MOBILE  (<= 620px)
@@ -69,13 +124,14 @@
       .h1             { font-size:27px !important; line-height:35px !important; }
       .h2             { font-size:19px !important; line-height:27px !important; }
 
-      /* Header: stack the logo and the NEW FEATURE badge instead of
-         letting them collide (reported iOS / macOS issue) */
-      .hdr-col        { max-width:100% !important; width:100% !important; }
-      .hdr-badge      { padding-top:14px !important; }
-      .hdr-tbl-left,
-      .hdr-tbl-right  { margin:0 auto !important; }
-      .logo-img       { width:148px !important; height:32px !important; max-width:148px !important; }
+      /* FIX 2: header logo + NEW FEATURE badge stack as real table rows.
+         Table cells forced to display:block is the reliable stacking
+         method on iOS Mail. The old inline-block divs collapsed there. */
+      .hdr-table      { width:100% !important; }
+      .hdr-cell       { display:block !important; width:100% !important; max-width:100% !important; text-align:center !important; padding:0 !important; }
+      .hdr-cell-badge { padding-top:16px !important; }
+      .hdr-inner      { margin:0 auto !important; float:none !important; }
+      .logo-img       { width:150px !important; height:33px !important; max-width:150px !important; }
 
       /* Connector chips wrap to two rows instead of overflowing */
       .chip-cell      { display:inline-block !important; width:auto !important; }
@@ -85,6 +141,7 @@
       .video-cell     { height:190px !important; }
       .video-inner    { height:190px !important; }
       .hero-img       { border-radius:12px 12px 0 0 !important; }
+      .social-pill    { display:inline-block !important; }
     }
 
     @media only screen and (max-width:400px) {
@@ -94,8 +151,8 @@
 
     /* ==========================================================
        5. DARK MODE
-       Only the light surfaces are re-skinned. The hero is dark
-       by design in both modes, so its colors are locked.
+       Light surfaces get re-skinned. Surfaces that are ALREADY
+       dark (hero gradient, footer) keep their colors locked.
        ========================================================== */
     @media (prefers-color-scheme: dark) {
       html, body  { background-color:#0f1117 !important; }
@@ -107,10 +164,24 @@
       .dm-muted   { color:#a9aec2 !important; }
       .dm-border  { border-color:#2c3141 !important; }
       .dm-fade    { background-color:#3a2fb8 !important; background:linear-gradient(180deg,#5a3df0 0%,#171a23 100%) !important; }
-      /* Logo plates and chips must stay light so the transparent
-         PNG logos (dark marks) never disappear. */
-      .keep-light { background-color:#ffffff !important; }
+
+      /* Plates that must stay light so dark-mark PNGs stay visible */
+      .keep-light    { background-color:#ffffff !important; }
       .keep-dark-ink { color:#2a2140 !important; }
+
+      /* FIX 7: iOS Mail was inverting the hero headline and intro copy
+         to dark ink on a gradient that stays purple. These locks pin
+         the text light so the hero never becomes unreadable. */
+      .keep-white-ink  { color:#ffffff !important; }
+      .keep-lilac-ink  { color:#c9bcff !important; }
+      .keep-soft-ink   { color:#e4defb !important; }
+      .keep-hero-bg    { background-color:#4a32d8 !important; }
+      .keep-badge-bg   { background-color:#5b45e0 !important; }
+      .keep-chip-bg    { background-color:#ffffff !important; }
+      .keep-footer-bg  { background-color:#161a2b !important; }
+      .keep-footer-ink { color:#9e96b3 !important; }
+      .keep-footer-dim { color:#746d87 !important; }
+      .keep-footer-lnk { color:#cbc4dc !important; }
     }
 
     /* Outlook.com / Windows Mail dark mode */
@@ -120,9 +191,20 @@
     [data-ogsc] .dm-text    { color:#e9ebf5 !important; }
     [data-ogsc] .dm-strong  { color:#ffffff !important; }
     [data-ogsc] .dm-muted   { color:#a9aec2 !important; }
+    [data-ogsc] .dm-border  { border-color:#2c3141 !important; }
     [data-ogsc] .dm-fade    { background-color:#3a2fb8 !important; background:linear-gradient(180deg,#5a3df0 0%,#171a23 100%) !important; }
-    [data-ogsc] .keep-light { background-color:#ffffff !important; }
+    [data-ogsc] .keep-light    { background-color:#ffffff !important; }
     [data-ogsc] .keep-dark-ink { color:#2a2140 !important; }
+    [data-ogsc] .keep-white-ink  { color:#ffffff !important; }
+    [data-ogsc] .keep-lilac-ink  { color:#c9bcff !important; }
+    [data-ogsc] .keep-soft-ink   { color:#e4defb !important; }
+    [data-ogsc] .keep-hero-bg    { background-color:#4a32d8 !important; }
+    [data-ogsc] .keep-badge-bg   { background-color:#5b45e0 !important; }
+    [data-ogsc] .keep-chip-bg    { background-color:#ffffff !important; }
+    [data-ogsc] .keep-footer-bg  { background-color:#161a2b !important; }
+    [data-ogsc] .keep-footer-ink { color:#9e96b3 !important; }
+    [data-ogsc] .keep-footer-dim { color:#746d87 !important; }
+    [data-ogsc] .keep-footer-lnk { color:#cbc4dc !important; }
   </style>
 </head>
 
@@ -134,10 +216,10 @@
     &#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;&#8203;
   </div>
 
-  <!-- ===== OUTER WRAPPER ===== -->
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" class="dm-bg" bgcolor="#eef1f8" style="background-color:#eef1f8;">
+  <!-- ===== PAGE BACKGROUND ===== -->
+  <table role="presentation" class="dm-bg" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#eef1f8" style="background-color:#eef1f8;">
     <tr>
-      <td align="center" style="padding:24px 12px;">
+      <td align="center" style="padding:26px 12px;">
 
         <!--[if mso]>
         <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0"><tr><td>
@@ -147,84 +229,66 @@
         <table role="presentation" class="wrapper dm-card" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%; max-width:600px; background-color:#ffffff; border-radius:18px; overflow:hidden;">
 
           <!-- ==========================================================
-               PREHEADER BAR  ("Having trouble viewing this email?")
-               Dark strip locked in both light and dark mode.
+               PREHEADER BAR
                ========================================================== -->
           <tr>
-            <td align="center" bgcolor="#161a2b" style="padding:10px 20px; background-color:#161a2b; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:16px; color:#a9aec2; mso-line-height-rule:exactly;">
-              Having trouble viewing this email? <a href="{{ mirror }}" class="link-hover" style="color:#d9d3ef; text-decoration:underline;">View it in your browser</a>
-            </td>
-          </tr>
-
-          <!-- ==========================================================
-               BRAND LOGO HEADER  (WPDeveloper)
-               keep-light holds the plate white in dark mode so the dark
-               wordmark never disappears.
-               ========================================================== -->
-          <tr>
-            <td align="center" class="keep-light" bgcolor="#ffffff" style="padding:22px 20px; background-color:#ffffff; line-height:0; font-size:0;">
-              <a href="https://wpdeveloper.com" target="_blank" style="text-decoration:none;">
-                <img src="https://assets.wpdeveloper.com/2020/04/WPDeveloper-Logo.png" width="170" alt="WPDeveloper" style="display:block; width:170px; max-width:170px; height:auto; border:0; margin:0 auto;">
-              </a>
+            <td align="center" class="keep-footer-bg" bgcolor="#161a2b" style="padding:10px 20px; background-color:#161a2b; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:16px; color:#a9aec2; mso-line-height-rule:exactly;">
+              <span class="keep-footer-ink" style="color:#a9aec2;">Having trouble viewing this email?</span>
+              <a href="{{ mirror }}" class="link-hover keep-footer-lnk" style="color:#d9d3ef; text-decoration:underline;">View it in your browser</a>
             </td>
           </tr>
 
           <!-- ==========================================================
                HEADER + HERO  (single dark gradient block)
+               FIX 1: BetterLinks is the only logo. The WPDeveloper
+               row that used to sit above this has been removed.
                ========================================================== -->
           <tr>
-            <td bgcolor="#2d1ea8" style="background-color:#2d1ea8; background:linear-gradient(145deg,#0f1a6e 0%,#2d1ea8 28%,#5a3df0 58%,#8b2fd6 80%,#c026d3 100%); padding:0;">
+            <td class="keep-hero-bg" bgcolor="#4a32d8" style="background-color:#4a32d8; background:linear-gradient(135deg,#3f2fd1 0%,#5a3df0 45%,#8b3ff0 100%);">
 
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
 
                 <!-- ---------- Top bar: BetterLinks logo + NEW FEATURE ---------- -->
                 <tr>
-                  <td class="px" style="padding:24px 36px 14px 36px; font-size:0; line-height:0;">
+                  <td class="px" style="padding:26px 36px 0 36px;">
 
-                    <!--[if mso]>
-                    <table role="presentation" width="528" cellpadding="0" cellspacing="0" border="0"><tr>
-                    <td width="300" align="left" valign="middle">
-                    <![endif]-->
+                    <!-- FIX 2: real two-cell table instead of inline-block
+                         divs. iOS Mail collapsed the old markup, which is
+                         what broke the badge placement. -->
+                    <table role="presentation" class="hdr-table" width="100%" cellpadding="0" cellspacing="0" border="0">
+                      <tr>
+                        <!-- BetterLinks white logo, sits straight on the gradient -->
+                        <td class="hdr-cell" align="left" valign="middle" style="padding:0;">
+                          <table role="presentation" class="hdr-inner" cellpadding="0" cellspacing="0" border="0" style="margin:0;">
+                            <tr>
+                              <td align="left" valign="middle" style="padding:6px 0; line-height:0; font-size:0;">
+                                <!-- BREVO: swap src for the Brevo-hosted URL -->
+                                <img src="BREVO_URL_betterlinks-logo-white.png" width="170" height="37" alt="BetterLinks" class="logo-img" style="display:block; width:170px; height:37px; max-width:170px; border:0;">
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
 
-                    <!-- BetterLinks white logo sits directly on the gradient.
-                         No white plate needed: the PNG is transparent and the
-                         mark is white, so it reads cleanly in light and dark. -->
-                    <div class="hdr-col" style="display:inline-block; vertical-align:middle; width:100%; max-width:300px;">
-                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="hdr-tbl-left" style="margin:0;">
-                        <tr>
-                          <td align="left" valign="middle" style="padding:6px 0; line-height:0; font-size:0;">
-                            <!-- BREVO: replace src with the Brevo-hosted URL -->
-                            <img src="email-assets/betterlinks-logo-white.png" width="170" height="37" alt="BetterLinks" class="logo-img" style="display:block; width:170px; height:37px; max-width:170px; border:0;">
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-
-                    <!--[if mso]>
-                    </td><td width="228" align="right" valign="middle">
-                    <![endif]-->
-
-                    <!-- NEW FEATURE badge -->
-                    <div class="hdr-col hdr-badge" style="display:inline-block; vertical-align:middle; width:100%; max-width:228px;">
-                      <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="hdr-tbl-right" style="margin:0 0 0 auto;">
-                        <tr>
-                          <td bgcolor="#5b45e0" align="center" valign="middle" style="background-color:#5b45e0; border:0; border-radius:30px; padding:8px 16px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#ffffff; white-space:nowrap;">
+                        <!-- NEW FEATURE badge
+                             A <td> cannot clip its own border-radius in iOS Mail
+                             or Gmail. The pill must be a <span> or <a> with
+                             display:inline-block so the browser/client renders
+                             the rounded corners correctly. -->
+                        <td class="hdr-cell hdr-cell-badge" align="right" valign="middle" style="padding:0; text-align:right;">
+                          <a href="https://betterlinks.io/docs/mcp-in-betterlinks/" target="_blank"
+                             style="display:inline-block; background-color:#5b45e0; border-radius:30px; padding:9px 20px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#ffffff; text-decoration:none; white-space:nowrap; mso-padding-alt:9px 20px; border:3px solid #5b45e0;">
                             &#10024;&nbsp;New Feature
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-
-                    <!--[if mso]>
-                    </td></tr></table>
-                    <![endif]-->
+                          </a>
+                        </td>
+                      </tr>
+                    </table>
 
                   </td>
                 </tr>
 
                 <!-- ---------- Divider ---------- -->
                 <tr>
-                  <td class="px" style="padding:0 36px;">
+                  <td class="px" style="padding:22px 36px 0 36px;">
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td height="1" style="height:1px; line-height:1px; font-size:0; background-color:#6f5ce8;">&nbsp;</td>
@@ -237,15 +301,15 @@
                 <tr>
                   <td class="px py-hero" align="center" style="padding:38px 36px 16px 36px;">
 
-                    <!-- BetterLinks x MCP badge (real MCP logo, no emoji) -->
+                    <!-- BetterLinks x MCP badge -->
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto 22px auto;">
                       <tr>
-                        <td class="keep-light" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:30px; padding:8px 18px;">
+                        <td class="keep-light keep-chip-bg" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:30px; padding:8px 18px;">
                           <table role="presentation" cellpadding="0" cellspacing="0" border="0">
                             <tr>
                               <td valign="middle" width="20" style="width:20px; padding-right:9px; line-height:0;">
-                                <!-- BREVO: replace src with the Brevo-hosted URL -->
-                                <img src="email-assets/mcp-logo.png" width="20" height="20" alt="Model Context Protocol" style="display:block; width:20px; height:20px; border:0;">
+                                <!-- BREVO: swap src for the Brevo-hosted URL -->
+                                <img src="BREVO_URL_mcp-logo.png" width="20" height="20" alt="Model Context Protocol" style="display:block; width:20px; height:20px; border:0;">
                               </td>
                               <td class="keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.1px; text-transform:uppercase; color:#2a2140; white-space:nowrap;">
                                 BetterLinks &times; MCP
@@ -256,96 +320,96 @@
                       </tr>
                     </table>
 
-                    <!-- Headline -->
-                    <h1 class="h1" style="margin:0 0 18px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:36px; line-height:46px; font-weight:800; color:#ffffff; letter-spacing:-0.6px; mso-line-height-rule:exactly;">
-                      Manage all your links<br>
-                      <span style="color:#c9bcff;">without leaving your AI</span>
+                    <!-- FIX 7: headline ink locked light for iOS dark mode -->
+                    <h1 class="h1 keep-white-ink" style="margin:0 0 18px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:36px; line-height:46px; font-weight:800; color:#ffffff; letter-spacing:-0.6px; mso-line-height-rule:exactly;">
+                      <span class="keep-white-ink" style="color:#ffffff;">Manage all your links</span><br>
+                      <span class="keep-lilac-ink" style="color:#c9bcff;">without leaving your AI</span>
                     </h1>
 
                     <!-- Sub-headline -->
                     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
                       <tr>
                         <td align="center" style="padding:0 0 26px 0;">
-                          <p style="margin:0 auto; max-width:460px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; color:#e4defb; mso-line-height-rule:exactly;">
-                            Say hello to <strong style="color:#ffffff;">BetterLinks MCP</strong>, a new way to connect BetterLinks with ChatGPT, Claude, Cursor and more.
+                          <p class="keep-soft-ink" style="margin:0 auto; max-width:460px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; color:#e4defb; mso-line-height-rule:exactly;">
+                            <span class="keep-soft-ink" style="color:#e4defb;">Say hello to </span><strong class="keep-white-ink" style="color:#ffffff;">BetterLinks MCP</strong><span class="keep-soft-ink" style="color:#e4defb;">, a new way to connect BetterLinks with ChatGPT, Claude, Cursor and more.</span>
                           </p>
                         </td>
                       </tr>
                     </table>
 
-                    <!-- ---------- Connector chips (real logos, no emoji) ---------- -->
+                    <!-- ---------- Connector chips ---------- -->
                     <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
                       <tr>
-                        <td class="chip-cell" valign="top" style="padding:0 3px 6px 3px;">
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                              <td class="keep-light" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 13px 7px 9px;">
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                                  <tr>
-                                    <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
-                                      <!-- BREVO: replace src with the Brevo-hosted URL -->
-                                      <img src="email-assets/chatgpt-logo.png" width="18" height="18" alt="ChatGPT" style="display:block; width:18px; height:18px; border:0;">
-                                    </td>
-                                    <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">ChatGPT</td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
+                        <td align="center" style="font-size:0;">
 
-                        <td class="chip-cell" valign="top" style="padding:0 3px 6px 3px;">
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                              <td class="keep-light" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 13px 7px 9px;">
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                                  <tr>
-                                    <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
-                                      <!-- BREVO: replace src with the Brevo-hosted URL -->
-                                      <img src="email-assets/claude-logo.png" width="18" height="18" alt="Claude" style="display:block; width:18px; height:18px; border:0;">
-                                    </td>
-                                    <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">Claude</td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
+                          <div class="chip-cell" style="display:inline-block; vertical-align:top; padding:0 5px 10px 5px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td class="keep-light keep-chip-bg" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 14px;">
+                                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                      <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
+                                        <img src="BREVO_URL_chatgpt-logo.png" width="18" height="18" alt="ChatGPT" style="display:block; width:18px; height:18px; border:0;">
+                                      </td>
+                                      <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">ChatGPT</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
 
-                        <td class="chip-cell" valign="top" style="padding:0 3px 6px 3px;">
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                              <td class="keep-light" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 13px 7px 9px;">
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                                  <tr>
-                                    <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
-                                      <!-- BREVO: replace src with the Brevo-hosted URL -->
-                                      <img src="email-assets/cursor-logo.png" width="18" height="18" alt="Cursor" style="display:block; width:18px; height:18px; border:0;">
-                                    </td>
-                                    <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">Cursor</td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
+                          <div class="chip-cell" style="display:inline-block; vertical-align:top; padding:0 5px 10px 5px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td class="keep-light keep-chip-bg" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 14px;">
+                                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                      <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
+                                        <img src="BREVO_URL_claude-logo.png" width="18" height="18" alt="Claude" style="display:block; width:18px; height:18px; border:0;">
+                                      </td>
+                                      <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">Claude</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
 
-                        <td class="chip-cell" valign="top" style="padding:0 3px 6px 3px;">
-                          <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                            <tr>
-                              <td class="keep-light" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 13px 7px 9px;">
-                                <table role="presentation" cellpadding="0" cellspacing="0" border="0">
-                                  <tr>
-                                    <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
-                                      <!-- BREVO: replace src with the Brevo-hosted URL -->
-                                      <img src="email-assets/vscode-logo.png" width="18" height="18" alt="VS Code" style="display:block; width:18px; height:18px; border:0;">
-                                    </td>
-                                    <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">VS Code</td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
+                          <div class="chip-cell" style="display:inline-block; vertical-align:top; padding:0 5px 10px 5px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td class="keep-light keep-chip-bg" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 14px;">
+                                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                      <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
+                                        <img src="BREVO_URL_cursor-logo.png" width="18" height="18" alt="Cursor" style="display:block; width:18px; height:18px; border:0;">
+                                      </td>
+                                      <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">Cursor</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+
+                          <div class="chip-cell" style="display:inline-block; vertical-align:top; padding:0 5px 10px 5px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                              <tr>
+                                <td class="keep-light keep-chip-bg" bgcolor="#ffffff" valign="middle" style="background-color:#ffffff; border-radius:22px; padding:7px 14px;">
+                                  <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                                    <tr>
+                                      <td valign="middle" width="18" style="width:18px; padding-right:7px; line-height:0;">
+                                        <img src="BREVO_URL_vscode-logo.png" width="18" height="18" alt="VS Code" style="display:block; width:18px; height:18px; border:0;">
+                                      </td>
+                                      <td class="chip-text keep-dark-ink" valign="middle" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:12px; line-height:16px; font-weight:600; color:#2a2140; white-space:nowrap;">VS Code</td>
+                                    </tr>
+                                  </table>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+
                         </td>
                       </tr>
                     </table>
@@ -356,8 +420,9 @@
                 <!-- ---------- Hero image ---------- -->
                 <tr>
                   <td class="px" align="center" style="padding:26px 36px 0 36px;">
-                    <a href="https://drive.google.com/file/d/1R7sPPc9qf2HEoGOxrTFKXN42XxwcGe3u/view?usp=sharing" target="_blank" style="text-decoration:none;">
-                      <img src="https://img.mailinblue.com/11250778/images/content_library/original/6a7db82ecae89cf48c89908c.png"
+                    <!-- FIX 5: hero image links straight to YouTube -->
+                    <a href="https://www.youtube.com/watch?v=EfYUMTKc9OM" target="_blank" style="text-decoration:none;">
+                      <img src="BREVO_URL_betterlinks-mcp-hero.png"
                            width="528" alt="Introducing BetterLinks MCP, connected to ChatGPT, Claude, Cursor and VS Code"
                            class="hero-img"
                            style="width:100%; max-width:528px; height:auto; display:block; border:0; border-radius:16px 16px 0 0;">
@@ -369,21 +434,16 @@
             </td>
           </tr>
 
-          <!-- Gradient-to-card fade strip under the hero image -->
-          <tr>
-            <td class="dm-fade" height="30" bgcolor="#5a3df0" style="height:30px; font-size:0; line-height:0; background-color:#5a3df0; background:linear-gradient(180deg,#5a3df0 0%,#ffffff 100%);">&nbsp;</td>
-          </tr>
-
           <!-- ==========================================================
                INTRO
                ========================================================== -->
           <tr>
-            <td class="px" style="padding:26px 40px 6px 40px;">
+            <td class="px" style="padding:32px 40px 0 40px;">
               <p class="dm-text" style="margin:0 0 16px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; color:#33384d; mso-line-height-rule:exactly;">
                 Hi there,
               </p>
               <p class="dm-text" style="margin:0 0 16px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; color:#33384d; mso-line-height-rule:exactly;">
-                What if you could manage all your links in BetterLinks without ever opening your dashboard? Now you can.
+                Managing links usually means opening WordPress, finding the right screen and clicking through a few menus. BetterLinks MCP removes that detour entirely.
               </p>
               <p class="dm-text" style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:26px; color:#33384d; mso-line-height-rule:exactly;">
                 With MCP you can connect BetterLinks to platforms like <strong class="dm-strong" style="color:#161a2b;">ChatGPT, Claude, Claude Code, Cursor and VS Code</strong>. Just integrate BetterLinks MCP, tell your AI what you want to do and it works with your link tools on your behalf.
@@ -487,6 +547,12 @@
 
           <!-- ==========================================================
                VIDEO CTA
+               Email clients cannot play video inline or execute JS.
+               The best practice is a YouTube thumbnail image with a
+               play button overlay, all wrapped in a link to YouTube.
+               This works in every client including Outlook Windows.
+               The thumbnail and play overlay are locked light so iOS
+               dark mode cannot invert them.
                ========================================================== -->
           <tr>
             <td class="px" align="center" style="padding:30px 40px 6px 40px;">
@@ -494,51 +560,41 @@
                 See BetterLinks MCP in action
               </p>
 
-              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-                <tr>
-                  <td class="video-cell" background="https://img.youtube.com/vi/EfYUMTKc9OM/maxresdefault.jpg" bgcolor="#161a2b" height="250" valign="middle" align="center"
-                      style="height:250px; background-color:#161a2b; background-image:url('https://img.youtube.com/vi/EfYUMTKc9OM/maxresdefault.jpg'); background-size:cover; background-position:center center; background-repeat:no-repeat; border-radius:14px;">
+              <!-- YouTube thumbnail wrapper: single clickable block -->
+              <a href="https://www.youtube.com/watch?v=EfYUMTKc9OM" target="_blank"
+                 style="display:block; text-decoration:none; line-height:0; font-size:0; position:relative; border-radius:14px; overflow:hidden;">
 
-                    <!--[if gte mso 9]>
-                    <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:520px; height:250px;">
-                      <v:fill type="frame" src="https://img.youtube.com/vi/EfYUMTKc9OM/maxresdefault.jpg" color="#161a2b" />
-                      <v:textbox inset="0,0,0,0"><div>
-                    <![endif]-->
+                <!-- Step 1: YouTube auto-generated thumbnail (always available, no hosting needed) -->
+                <img src="https://img.youtube.com/vi/EfYUMTKc9OM/maxresdefault.jpg"
+                     width="520" height="293"
+                     alt="Watch BetterLinks MCP demo on YouTube"
+                     style="display:block; width:100%; max-width:520px; height:auto; border:0; border-radius:14px;">
 
-                    <table role="presentation" class="video-inner" width="100%" cellpadding="0" cellspacing="0" border="0" style="height:250px;">
-                      <tr>
-                        <td align="center" valign="middle" style="padding:20px 16px; background-color:rgba(16,18,34,0.42); border-radius:14px;">
-                          <a href="https://drive.google.com/file/d/1R7sPPc9qf2HEoGOxrTFKXN42XxwcGe3u/view?usp=sharing" target="_blank" style="text-decoration:none; color:#ffffff;">
-                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
-                              <tr>
-                                <td align="center" valign="middle" width="66" height="66" bgcolor="#ffffff" style="width:66px; height:66px; background-color:#ffffff; border-radius:33px; text-align:center; font-family:Arial,Helvetica,sans-serif; font-size:24px; line-height:66px; color:#5a3df0;">
-                                  <span style="color:#5a3df0;">&#9654;&#65038;</span>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td align="center" style="padding-top:14px;">
-                                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto;">
-                                    <tr>
-                                      <td bgcolor="#1b1e33" align="center" style="background-color:#1b1e33; border-radius:20px; padding:7px 16px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:17px; font-weight:600; color:#ffffff; white-space:nowrap;">
-                                        Watch the demo
-                                      </td>
-                                    </tr>
-                                  </table>
-                                </td>
-                              </tr>
-                            </table>
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
+                <!--[if !mso]><!-->
+                <!-- Step 2: Play button overlay — centred absolutely over the thumbnail.
+                     Not supported in Outlook Windows but degrades cleanly to just the thumbnail. -->
+                <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); -webkit-transform:translate(-50%,-50%); width:72px; height:72px; mso-hide:all;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="72" style="width:72px;">
+                    <tr>
+                      <td bgcolor="#ffffff" width="72" height="72" align="center" valign="middle"
+                          style="width:72px; height:72px; background-color:#ffffff; border-radius:36px; text-align:center; vertical-align:middle; line-height:72px; font-family:Arial,Helvetica,sans-serif; font-size:28px; color:#5a3df0; box-shadow:0 4px 18px rgba(0,0,0,0.35);">
+                        <span style="color:#5a3df0; line-height:72px;">&#9654;</span>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <!--<![endif]-->
 
-                    <!--[if gte mso 9]>
-                      </div></v:textbox>
-                    </v:rect>
-                    <![endif]-->
-                  </td>
-                </tr>
-              </table>
+              </a>
+
+              <!-- "Watch on YouTube" text link sits below, visible in all clients -->
+              <p style="margin:12px 0 0 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:13px; line-height:18px; color:#5a3df0; mso-line-height-rule:exactly;">
+                <a href="https://www.youtube.com/watch?v=1qpe9BBmA88" target="_blank"
+                   style="color:#5a3df0; text-decoration:underline; font-weight:600;">
+                  &#9654;&nbsp; Watch on YouTube
+                </a>
+              </p>
+
             </td>
           </tr>
 
@@ -556,7 +612,7 @@
                   <td align="center" bgcolor="#5a3df0" style="border-radius:12px; background-color:#5a3df0; background:linear-gradient(120deg,#2f6bff 0%,#5a3df0 60%,#7c3aed 100%);">
                     <a href="https://betterlinks.io/docs/mcp-in-betterlinks/" target="_blank"
                        style="display:inline-block; padding:16px 32px; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:16px; line-height:20px; font-weight:700; color:#ffffff; text-decoration:none; border-radius:12px; letter-spacing:0.2px;">
-                      Connect BetterLinks MCP&nbsp;&nbsp;&#8594;
+                      <span class="keep-white-ink" style="color:#ffffff;">Connect BetterLinks MCP&nbsp;&nbsp;&#8594;</span>
                     </a>
                   </td>
                 </tr>
@@ -566,6 +622,8 @@
 
           <!-- ==========================================================
                SIGN OFF
+               FIX 3: "Best," replaced with a closing that matches the
+               product voice used elsewhere in the email.
                ========================================================== -->
           <tr>
             <td class="px" style="padding:26px 40px 32px 40px;">
@@ -584,24 +642,81 @@
           </tr>
 
           <!-- ==========================================================
-               FOOTER  (permission reminder + unsubscribe + copyright)
-               Dark strip locked in both light and dark mode.
+               FOOTER
+               FIX 4: BetterLinks copy and credits.
+               FIX 6: LinkedIn, Facebook and X links added.
                ========================================================== -->
           <tr>
-            <td align="center" class="px" bgcolor="#161a2b" style="padding:26px 28px 30px 28px; background-color:#161a2b; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
-              <p style="margin:0 0 10px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
-                You are receiving this email because you use or subscribed to a WPDeveloper product.
+            <td align="center" class="px keep-footer-bg" bgcolor="#161a2b" style="padding:28px 28px 30px 28px; background-color:#161a2b; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
+
+              <!-- Social links -->
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:0 auto 18px auto;">
+                <tr>
+                  <td align="center" style="font-size:0;">
+
+                    <!-- LinkedIn -->
+                    <div class="social-pill" style="display:inline-block; vertical-align:middle; padding:0 5px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td class="keep-light keep-chip-bg" bgcolor="#ffffff" align="center" valign="middle" width="36" height="36" style="width:36px; height:36px; background-color:#ffffff; border-radius:18px; text-align:center; line-height:0; font-size:0;">
+                            <a href="https://www.linkedin.com/showcase/bettterlinks/posts/?feedView=all" target="_blank" style="display:block; text-decoration:none; padding:8px;">
+                              <!-- BREVO: swap src for the Brevo-hosted URL -->
+                              <img src="BREVO_URL_social-linkedin.png" width="20" height="20" alt="LinkedIn" style="display:block; width:20px; height:20px; max-width:20px; border:0; margin:0 auto;">
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+
+                    <!-- Facebook -->
+                    <div class="social-pill" style="display:inline-block; vertical-align:middle; padding:0 5px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td class="keep-light keep-chip-bg" bgcolor="#ffffff" align="center" valign="middle" width="36" height="36" style="width:36px; height:36px; background-color:#ffffff; border-radius:18px; text-align:center; line-height:0; font-size:0;">
+                            <a href="https://www.facebook.com/BetterLinks.io" target="_blank" style="display:block; text-decoration:none; padding:8px;">
+                              <!-- BREVO: swap src for the Brevo-hosted URL -->
+                              <img src="BREVO_URL_social-facebook.png" width="20" height="20" alt="Facebook" style="display:block; width:20px; height:20px; max-width:20px; border:0; margin:0 auto;">
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+
+                    <!-- X (Twitter) -->
+                    <div class="social-pill" style="display:inline-block; vertical-align:middle; padding:0 5px;">
+                      <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                          <td class="keep-light keep-chip-bg" bgcolor="#ffffff" align="center" valign="middle" width="36" height="36" style="width:36px; height:36px; background-color:#ffffff; border-radius:18px; text-align:center; line-height:0; font-size:0;">
+                            <a href="https://x.com/BetterLinkss" target="_blank" style="display:block; text-decoration:none; padding:8px;">
+                              <!-- BREVO: swap src for the Brevo-hosted URL -->
+                              <img src="BREVO_URL_social-x-twitter.png" width="20" height="20" alt="X (Twitter)" style="display:block; width:20px; height:20px; max-width:20px; border:0; margin:0 auto;">
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+
+                  </td>
+                </tr>
+              </table>
+
+              <p class="keep-footer-ink" style="margin:0 0 10px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
+                You are receiving this email because you use BetterLinks or subscribed to the BetterLinks newsletter.
               </p>
               <p style="margin:0 0 10px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
-                <a href="{{ unsubscribe }}" class="link-hover" style="color:#cbc4dc; text-decoration:underline;">Unsubscribe</a>
+                <a href="{{ unsubscribe }}" class="link-hover keep-footer-lnk" style="color:#cbc4dc; text-decoration:underline;">Unsubscribe</a>
               </p>
-              <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#746d87; mso-line-height-rule:exactly;">
-                &copy; 2026 WPDeveloper. All rights reserved.
+              <p class="keep-footer-dim" style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#746d87; mso-line-height-rule:exactly;">
+                &copy; 2026 BetterLinks. All rights reserved.
               </p>
             </td>
           </tr>
 
         </table>
+
+        <!--[if mso]>
+        </td></tr></table>
+        <![endif]-->
 
       </td>
     </tr>
