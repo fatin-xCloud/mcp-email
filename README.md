@@ -401,4 +401,4 @@ Test in a real client suite before opening a PR. Browser preview is not evidence
 
 ## License
 
-Add your license here. The BetterLinks and WPDeveloper marks are trademarks of their respective owners and are not covered by any license applied to this code.
+© All rights reserved by WPDeveloper.
