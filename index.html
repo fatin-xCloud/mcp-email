@@ -147,6 +147,29 @@
         <table role="presentation" class="wrapper dm-card" width="600" cellpadding="0" cellspacing="0" border="0" bgcolor="#ffffff" style="width:100%; max-width:600px; background-color:#ffffff; border-radius:18px; overflow:hidden;">
 
           <!-- ==========================================================
+               PREHEADER BAR  ("Having trouble viewing this email?")
+               Dark strip locked in both light and dark mode.
+               ========================================================== -->
+          <tr>
+            <td align="center" bgcolor="#161a2b" style="padding:10px 20px; background-color:#161a2b; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:16px; color:#a9aec2; mso-line-height-rule:exactly;">
+              Having trouble viewing this email? <a href="{{ mirror }}" target="_blank" class="link-hover" style="color:#d9d3ef; text-decoration:underline;">View it in your browser</a>
+            </td>
+          </tr>
+
+          <!-- ==========================================================
+               BRAND LOGO HEADER  (WPDeveloper)
+               keep-light holds the plate white in dark mode so the dark
+               wordmark never disappears.
+               ========================================================== -->
+          <tr>
+            <td align="center" class="keep-light" bgcolor="#ffffff" style="padding:22px 20px; background-color:#ffffff; line-height:0; font-size:0;">
+              <a href="https://wpdeveloper.com" target="_blank" style="text-decoration:none;">
+                <img src="https://assets.wpdeveloper.com/2020/04/WPDeveloper-Logo.png" width="170" alt="WPDeveloper" style="display:block; width:170px; max-width:170px; height:auto; border:0; margin:0 auto;">
+              </a>
+            </td>
+          </tr>
+
+          <!-- ==========================================================
                HEADER + HERO  (single dark gradient block)
                ========================================================== -->
           <tr>
@@ -163,14 +186,15 @@
                     <td width="300" align="left" valign="middle">
                     <![endif]-->
 
-                    <!-- BetterLinks logo on a white plate so the dark wordmark
-                         stays legible on the gradient in both light and dark mode -->
+                    <!-- BetterLinks white logo sits directly on the gradient.
+                         No white plate needed: the PNG is transparent and the
+                         mark is white, so it reads cleanly in light and dark. -->
                     <div class="hdr-col" style="display:inline-block; vertical-align:middle; width:100%; max-width:300px;">
                       <table role="presentation" cellpadding="0" cellspacing="0" border="0" class="hdr-tbl-left" style="margin:0;">
                         <tr>
-                          <td class="keep-light" bgcolor="#ffffff" align="center" valign="middle" style="background-color:#ffffff; border-radius:12px; padding:11px 16px; line-height:0; font-size:0;">
+                          <td align="left" valign="middle" style="padding:6px 0; line-height:0; font-size:0;">
                             <!-- BREVO: replace src with the Brevo-hosted URL -->
-                            <img src="email-assets/betterlinks-logo.png" width="170" height="37" alt="BetterLinks" class="logo-img" style="display:block; width:170px; height:37px; max-width:170px; border:0;">
+                            <img src="email-assets/betterlinks-logo-white.png" width="170" height="37" alt="BetterLinks" class="logo-img" style="display:block; width:170px; height:37px; max-width:170px; border:0;">
                           </td>
                         </tr>
                       </table>
@@ -555,6 +579,24 @@
               </p>
               <p class="dm-strong" style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:15px; line-height:23px; font-weight:700; color:#161a2b; mso-line-height-rule:exactly;">
                 Team BetterLinks
+              </p>
+            </td>
+          </tr>
+
+          <!-- ==========================================================
+               FOOTER  (permission reminder + unsubscribe + copyright)
+               Dark strip locked in both light and dark mode.
+               ========================================================== -->
+          <tr>
+            <td align="center" class="px" bgcolor="#161a2b" style="padding:26px 28px 30px 28px; background-color:#161a2b; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
+              <p style="margin:0 0 10px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
+                You are receiving this email because you use or subscribed to a WPDeveloper product.
+              </p>
+              <p style="margin:0 0 10px 0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#9e96b3; mso-line-height-rule:exactly;">
+                <a href="{{ unsubscribe }}" target="_blank" class="link-hover" style="color:#cbc4dc; text-decoration:underline;">Unsubscribe</a>
+              </p>
+              <p style="margin:0; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:11px; line-height:18px; color:#746d87; mso-line-height-rule:exactly;">
+                &copy; 2026 WPDeveloper. All rights reserved.
               </p>
             </td>
           </tr>
